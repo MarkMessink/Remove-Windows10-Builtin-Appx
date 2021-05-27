@@ -14,7 +14,7 @@
     Author:      Mark Messink
     Contact:     
     Created:     2020-07-05
-    Updated:     2020-11-24
+    Updated:     2021-05-27
 	
 	Information:
 	White list of appx packages to keep installed
@@ -25,6 +25,7 @@
 	1.0.0 - (2020-03-31) Windows 10 version 1803, 1809, 1903, and 1909
     1.0.0 - (2020-07-05) Windows 10 version 2004
 	1.0.1 - (2020-10-01) Windows 10 version 20H2
+	1.0.2 - (2021-05-27) Windows 10 version 10.0.21354 (preview)
 	
 	Microsoft Store:
 	The Store app can't be removed. If you want to remove and reinstall the Store app, you can only bring Store back by either restoring your system from a backup or resetting your system. 
@@ -34,20 +35,21 @@
 
 Begin {
     $WhiteListedAppx = New-Object -TypeName System.Collections.ArrayList
-	
-<##### Microsoft Edge #####>
-	$WhiteListedAppx.AddRange(@(
-	"Microsoft.MicrosoftEdge.Stable",
-	"Microsoft.MicrosoftEdge.Beta",
-	"Microsoft.MicrosoftEdge.Dev"
-	))
 
 <##### APPx that shouldn't be removed #####>
 	$WhiteListedAppx.AddRange(@(
-	"Microsoft.WindowsStore" # unsupported
+	"Microsoft.WindowsStore" # Microsoft Store - Remove is unsupported
+	"Microsoft.SecHealthUI" # Microsoft defender - This app is part of Windows and cannot be uninstalled 
 	))
-    	
-<##### Version: 1803 #####>
+	
+<##### Microsoft Edge Browser, Use Default installed Edge Chromium or deploy Edge with Intune #####>
+	$WhiteListedAppx.AddRange(@(
+	### "Microsoft.MicrosoftEdge.Stable",
+	### "Microsoft.MicrosoftEdge.Beta",
+	### "Microsoft.MicrosoftEdge.Dev"
+	))
+    		
+<##### Version: 1909 and older #####>
 	$WhiteListedAppx.AddRange(@(
 	###	"Microsoft.BingWeather",
 	"Microsoft.DesktopAppInstaller",
@@ -75,26 +77,12 @@ Begin {
 	###	"Microsoft.WindowsFeedbackHub", 
 	"Microsoft.WindowsMaps",
 	"Microsoft.WindowsSoundRecorder"
-	))
-
-<##### Version: 1809 #####>
-	$WhiteListedAppx.AddRange(@(
 	"Microsoft.HEIFImageExtension",
 	###	"Microsoft.MixedReality.Portal",
 	###	"Microsoft.ScreenSketch",
 	"Microsoft.VP9VideoExtensions",
 	"Microsoft.WebpImageExtension",
 	"Microsoft.YourPhone"
-	))
-	
-<##### Version: 1903 #####>
-	$WhiteListedAppx.AddRange(@(
-	### "No new provisioned Windows APPx
-	))
-	
-<##### Version: 1909 #####>
-	$WhiteListedAppx.AddRange(@(
-	### "No new provisioned Windows APPx
 	))
 	
 <##### Version: 2004 #####>
@@ -108,13 +96,16 @@ Begin {
 	### "No new provisioned Windows APPx
     ))
 
-<##### Version: 21H1 - Insider Preview #####>
+<##### Version: 21H1 - Insider Preview 10.0.21354 #####>
 	$WhiteListedAppx.AddRange(@(
-	"Microsoft.BingNews",
-	"Microsoft.Todos",
+	### "Microsoft.BingNews",
+	### "Microsoft.GamingApp",
+	### "Microsoft.PowerAutomateDesktop" 
+	### "Microsoft.Todos",
+	"Microsoft.WindowsNotepad"
+	### "Microsoft.WindowsTerminal"
 	"Microsoft.UI.Xaml.2.2",
 	"Microsoft.UI.Xaml.2.4"
-	
     ))
 }
 
@@ -152,7 +143,6 @@ Process {
     # Initial logging
 	$date = get-date
 	Write-LogEntry -Value "-------------------------------------------------------------------------------"
-    Write-LogEntry -Value "Script Version: 20H2 (2020-11-23)"
 	Write-LogEntry -Value "$date"
 	Write-LogEntry -Value "-------------------------------------------------------------------------------"
     Write-LogEntry -Value "Starting built-in AppxPackage, AppxProvisioningPackage removal process"
