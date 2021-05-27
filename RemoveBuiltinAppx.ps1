@@ -61,6 +61,7 @@ Begin {
 	###	"Microsoft.MicrosoftSolitaireCollection",
 	###	"Microsoft.MicrosoftStickyNotes",
 	"Microsoft.MSPaint",
+	"Microsoft.Paint",
 	###	"Microsoft.Office.OneNote",
 	### "Microsoft.OneConnect", # removed in 20H1
 	###	"Microsoft.People",
