@@ -14,7 +14,7 @@
     Author:      Mark Messink
     Contact:     
     Created:     2020-07-05
-    Updated:     2021-05-27
+    Updated:     2021-07-26
 	
 	Information:
 	White list of appx packages to keep installed
@@ -25,7 +25,7 @@
 	1.0.0 - (2020-03-31) Windows 10 version 1803, 1809, 1903, and 1909
     1.0.0 - (2020-07-05) Windows 10 version 2004
 	1.0.1 - (2020-10-01) Windows 10 version 20H2
-	1.0.2 - (2021-05-27) Windows 10 version 10.0.21354 (preview)
+	1.0.2 - (2021-07-30) Windows 11 version 10.0.22000 (preview)
 	
 	Microsoft Store:
 	The Store app can't be removed. If you want to remove and reinstall the Store app, you can only bring Store back by either restoring your system from a backup or resetting your system. 
@@ -38,40 +38,39 @@ Begin {
 
 <##### APPx that shouldn't be removed #####>
 	$WhiteListedAppx.AddRange(@(
-	"Microsoft.WindowsStore" # Microsoft Store - Remove is unsupported
-	"Microsoft.SecHealthUI" # Microsoft defender - This app is part of Windows and cannot be uninstalled 
+	"Microsoft.WindowsStore", # Microsoft Store - Remove is unsupported
+	"Microsoft.SecHealthUI", # Microsoft defender - This app is part of Windows and cannot be uninstalled 
+	"Microsoft.DesktopAppInstaller" # Cannot be uninstalled
 	))
 	
 <##### Microsoft Edge Browser, Use Default installed Edge Chromium or deploy Edge with Intune #####>
 	$WhiteListedAppx.AddRange(@(
-	### "Microsoft.MicrosoftEdge.Stable",
-	### "Microsoft.MicrosoftEdge.Beta",
-	### "Microsoft.MicrosoftEdge.Dev"
+	### "Microsoft.MicrosoftEdge.Stable", #Remove preinstalled Edge browser, Install via Intune
 	))
     		
 <##### Version: 1909 and older #####>
 	$WhiteListedAppx.AddRange(@(
 	###	"Microsoft.BingWeather",
-	"Microsoft.DesktopAppInstaller",
 	###	"Microsoft.GetHelp",
 	###	"Microsoft.GetStarted",
-	### "Microsoft.Messaging", # removed in 20H1
-	### "Microsoft.Microsoft3DViewer",
+	### "Microsoft.Messaging", #removed in 20H1
+	### "Microsoft.Microsoft3DViewer", #removed in Win11
 	"Microsoft.MicrosoftOfficeHub",
 	###	"Microsoft.MicrosoftSolitaireCollection",
 	###	"Microsoft.MicrosoftStickyNotes",
-	"Microsoft.MSPaint",
-	"Microsoft.Paint",
-	###	"Microsoft.Office.OneNote",
-	### "Microsoft.OneConnect", # removed in 20H1
+	"Microsoft.MSPaint", #removed in Win11
+	"Microsoft.Paint", #22000
+	###	"Microsoft.Office.OneNote", #removed in Win11
+	### "Microsoft.OneConnect", #removed in 2004
 	###	"Microsoft.People",
-	### "Microsoft.Print3D", # removed in 20H1
-	###	"Microsoft.SkypeApp",
+	### "Microsoft.ScreenSketch",
+	### "Microsoft.Print3D", #removed in 2004
+	###	"Microsoft.SkypeApp", #removed in Win11
 	"Microsoft.StorePurchaseApp",
-	###	"Microsoft.Wallet",
+	###	"Microsoft.Wallet", #removed in Win11
 	"Microsoft.WebMediaExtensions",
 	"Microsoft.Windows.Photos",
-	"Microsoft.WindowsAlarms",
+	### "Microsoft.WindowsAlarms",
 	"Microsoft.WindowsCalculator", 
 	"Microsoft.WindowsCamera", 
 	###	"Microsoft.WindowsCommunicationsApps", # Mail, Calendar etc
@@ -82,8 +81,8 @@ Begin {
 	###	"Microsoft.MixedReality.Portal",
 	###	"Microsoft.ScreenSketch",
 	"Microsoft.VP9VideoExtensions",
-	"Microsoft.WebpImageExtension",
-	"Microsoft.YourPhone"
+	"Microsoft.WebpImageExtension"
+	### "Microsoft.YourPhone"
 	))
 	
 <##### Version: 2004 #####>
@@ -94,19 +93,20 @@ Begin {
 	
 <##### Version: 20H2 #####>
 	$WhiteListedAppx.AddRange(@(
-	### "No new provisioned Windows APPx
+	### "No new provisioned Windows APPx"
     ))
 
-<##### Version: 21H1 - Insider Preview 10.0.21354 #####>
+<##### Version: 21H1 - Insider Preview - Windows 11 - 10.0.22000 #####>
 	$WhiteListedAppx.AddRange(@(
 	### "Microsoft.BingNews",
 	### "Microsoft.GamingApp",
-	### "Microsoft.PowerAutomateDesktop" 
+	### "Microsoft.PowerAutomateDesktop"
 	### "Microsoft.Todos",
 	"Microsoft.WindowsNotepad"
 	### "Microsoft.WindowsTerminal"
 	"Microsoft.UI.Xaml.2.2",
-	"Microsoft.UI.Xaml.2.4"
+	"Microsoft.UI.Xaml.2.4",
+	"MicrosoftWindows.Client.WebExperience"
     ))
 }
 
